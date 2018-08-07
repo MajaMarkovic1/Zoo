@@ -7,15 +7,15 @@
                 <th>Name</th>
                 <th>Date of Birth</th>
                 <th></th>
+                <th></th>                
             </thead>
             <tbody>
                 <tr v-for="(animal, key) in animals" :key="key">
                     <td>{{ animal.type }}</td>
                     <td>{{ animal.name }}</td>
-                    <!-- <td v-if="animal.dateOfBirth === ''">Unknown</td> -->
-                    <!-- <td v-else>{{ animal.dateOfBirth }}</td> -->
-                    <td>{{ animal.dateOfBirth === '' ? 'Unknown' : animal.dateOfBirth }}</td>
+                    <td>{{ animal.dateOfBirth ? animal.dateOfBirth : "Unknown"  }}</td>
                     <button @click="removeAnimal(animal)">Remove</button>
+                    <button @click="moveToTop(animal)">Move to top</button>
                 </tr>
             </tbody>
         </table>
@@ -34,14 +34,23 @@ export default {
               {type: 'tiger', name: 'Maja', dateOfBirth: '03/02/2013'},
               {type: 'elephant', name: 'Marko', dateOfBirth: ''}
               
-          ]
+          ],
+
       }
   },
   methods: {
       removeAnimal(animal){
           let indexOfAnimal = this.animals.indexOf(animal);
           this.animals.splice(indexOfAnimal, 1);
-      }
+      },
+    moveToTop(animal){
+        let indexOfAnimal = this.animals.indexOf(animal);
+        this.animals.splice(indexOfAnimal, 1);
+        this.animals.unshift(animal); 
+        
+        
+    }
+     
   }
 
 }
