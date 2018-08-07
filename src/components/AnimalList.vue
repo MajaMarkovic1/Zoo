@@ -6,13 +6,16 @@
                 <th>Type</th>
                 <th>Name</th>
                 <th>Date of Birth</th>
+                <th></th>
             </thead>
             <tbody>
                 <tr v-for="(animal, key) in animals" :key="key">
                     <td>{{ animal.type }}</td>
                     <td>{{ animal.name }}</td>
-                    <td v-if="animal.dateOfBirth === ''">Unknown</td>
-                    <td v-else>{{ animal.dateOfBirth }}</td>
+                    <!-- <td v-if="animal.dateOfBirth === ''">Unknown</td> -->
+                    <!-- <td v-else>{{ animal.dateOfBirth }}</td> -->
+                    <td>{{ animal.dateOfBirth === '' ? 'Unknown' : animal.dateOfBirth }}</td>
+                    <button @click="removeAnimal(animal)">Remove</button>
                 </tr>
             </tbody>
         </table>
@@ -33,8 +36,15 @@ export default {
               
           ]
       }
+  },
+  methods: {
+      removeAnimal(animal){
+          let indexOfAnimal = this.animals.indexOf(animal);
+          this.animals.splice(indexOfAnimal, 1);
+      }
   }
 
 }
 </script>
+
 
