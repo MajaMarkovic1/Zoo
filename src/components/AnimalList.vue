@@ -36,6 +36,19 @@
                 </tr>
             </tbody>
         </table>
+        
+        <table>
+            <thead>   
+                <th>Sector name</th>              
+                <th></th>   
+            </thead>
+            <tbody>
+                <tr v-for="(sector, key) in sectors" :key="key">
+                    <td>{{ sector.name }}</td>
+                    <button @click="seeAnimalList(sector)">See Animal List</button>    
+                </tr>
+            </tbody>
+        </table>
   </div>
 </template>
 
@@ -53,10 +66,10 @@ export default {
   data(){
       return {
           animals: [
-              {type: 'bear', name: 'Mihajlo', dateOfBirth: '01/01/2010', sector: sectors[0]},
-              {type: 'lion', name: 'Milan', dateOfBirth: '01/02/2011', sector: sectors[0]},
-              {type: 'snake', name: 'Damir', dateOfBirth: '02/01/2012', sector: sectors[1]},
-              {type: 'tiger', name: 'Maja', dateOfBirth: '03/02/2013', sector: sectors[0]},
+              {type: 'bear', name: 'Mihajlo', dateOfBirth: '01/01/2010', sector: sectors[0], background: true},
+              {type: 'lion', name: 'Milan', dateOfBirth: '01/02/2011', sector: sectors[0], background: false},
+              {type: 'snake', name: 'Damir', dateOfBirth: '02/01/2012', sector: sectors[1], background: true},
+              {type: 'tiger', name: 'Maja', dateOfBirth: '03/02/2013', sector: sectors[0], background: false},
               {type: 'shark', name: 'Marko', dateOfBirth: '', sector: sectors[2]}
               
           ],
@@ -79,8 +92,17 @@ export default {
     addAnimal(){
         this.animals.push(this.newAnimal);
         this.newAnimal = {};
-    }
-     
+    },
+    seeAnimalList(sector){
+        let animalList = [];
+        this.animals.forEach(function(animal){
+            if (sector === animal.sector){
+                animalList.push(`${animal.type} ${animal.name}`);
+            }
+            }
+        )
+        alert(animalList);
+    } 
   }
 
 }
