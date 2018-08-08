@@ -9,7 +9,7 @@
             <label>Date of Birth: </label>
             <input v-model="newAnimal.dateOfBirth" placeholder="dateOfBirth" type="text"><br>
             <label>Sector: </label>
-           <select v-model="newAnimal.sector">
+            <select v-model="newAnimal.sector">
                 <option v-for="(sector, key) in sectors" :key="key" v-bind:value='sector'>{{sector.name}}</option><br>
             </select><br>
             <button @click="addAnimal">Add animal</button>
@@ -21,18 +21,18 @@
                 <th>Date of Birth</th>
                 <th>Sector name</th>
                 <th>Sector space</th>                
-                <th></th>
-                <th></th>                
+                               
             </thead>
             <tbody>
-                <tr v-for="(animal, key) in animals" :key="key">
+                <tr v-for="(animal, key) in animals" :key="key" v-bind:class="{ greenRow: animal.background}">
                     <td>{{ animal.type }}</td>
                     <td>{{ animal.name }}</td>
                     <td>{{ animal.dateOfBirth ? animal.dateOfBirth : "Unknown"  }}</td>
                     <td>{{ animal.sector.name }}</td>
                     <td>{{ animal.sector.space }}</td>
-                    <button @click="removeAnimal(animal)">Remove</button>
-                    <button @click="moveToTop(animal)">Move to top</button>
+                    <td><button @click="removeAnimal(animal)">Remove</button></td>
+                    <td><button @click="moveToTop(animal)">Move to top</button></td>
+                    <td><button @click="toggleBackground(animal)">Toggle background</button></td>
                 </tr>
             </tbody>
         </table>
@@ -93,6 +93,7 @@ export default {
         this.animals.push(this.newAnimal);
         this.newAnimal = {};
     },
+
     seeAnimalList(sector){
         let animalList = [];
         this.animals.forEach(function(animal){
@@ -102,10 +103,37 @@ export default {
             }
         )
         alert(animalList);
-    } 
+    }, 
+
+    toggleBackground(animal){
+        if (animal.background){
+            animal.background = false;
+        } else {
+            animal.background = true;
+        }
+         
+    }
   }
 
 }
 </script>
+
+<style>
+label, input, select {
+    margin-top: 0.5rem;
+}
+
+table {
+    border-collapse: separate;
+    margin-top: 1rem; 
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+.greenRow {
+    background-color: rgb(64, 230, 64);
+}
+</style>
 
 
